@@ -1,4 +1,4 @@
-<!-- ACTIV MVP Dashboard + Pixel Manager + AI Assistant (Enhanced Features) -->
+<!-- ACTIV MVP Dashboard + Pixel Manager + AI Assistant (Enhanced Features + showTab Fix) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,6 +120,7 @@
   </style>
   <script>
     let charts = [];
+
     function showTab(id) {
       document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('aside a').forEach(link => link.classList.remove('active'));
@@ -130,26 +131,55 @@
         navEl.classList.add('active');
       }
     }
-    function createChart(ctxId, type, data, title) {
-      const canvas = document.getElementById(ctxId);
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      return new Chart(ctx, {
-        type: type,
-        data: data,
+
+    function createDashboardCharts() {
+      const ctx1 = document.getElementById('dashboardChart1')?.getContext('2d');
+      const ctx2 = document.getElementById('dashboardChart2')?.getContext('2d');
+      if (!ctx1 || !ctx2) return;
+
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+          datasets: [{
+            label: 'Weekly Impressions',
+            data: [300000, 450000, 420000, 480000],
+            backgroundColor: '#1a2b6b'
+          }]
+        },
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
           plugins: {
             title: {
               display: true,
-              text: title
-            },
-            legend: { display: true }
+              text: 'Impressions Over Time'
+            }
+          }
+        }
+      });
+
+      new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+          datasets: [{
+            label: 'CTR (%)',
+            data: [1.4, 1.7, 1.9, 2.1],
+            borderColor: '#3e4ca1',
+            fill: false,
+            tension: 0.3
+          }]
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'CTR Trends Over Time'
+            }
           }
         }
       });
     }
+
     function handleAIResponse(text) {
       const prompt = text || document.querySelector('#aiPrompt').value.toLowerCase();
       const responseEl = document.querySelector('#aiResponseText');
@@ -188,7 +218,9 @@
         }]
       }, 'Audience Distribution'));
     }
+
     window.addEventListener('DOMContentLoaded', () => {
+      createDashboardCharts();
       showTab('dashboard');
     });
   </script>
@@ -201,6 +233,7 @@
     <a href="#" data-tab="assistant" onclick="showTab('assistant')">🤖 AI Assistant</a>
   </aside>
   <main>
+    <!-- Dashboard tab content (charts and KPI cards) -->
     <div id="dashboard" class="tab">
       <h2>Dashboard</h2>
       <div class="kpi-grid">
@@ -213,8 +246,11 @@
         <div class="card"><div><h3>Conversions</h3><p>3,420</p></div><span class="trend">▲</span></div>
         <div class="card"><div><h3>Viewability</h3><p>88%</p></div><span class="trend">▲</span></div>
       </div>
+      <div class="chart-container"><canvas id="dashboardChart1"></canvas></div>
+      <div class="chart-container"><canvas id="dashboardChart2"></canvas></div>
     </div>
 
+    <!-- Pixel Manager tab content -->
     <div id="pixels" class="tab">
       <h2>Pixel Manager</h2>
       <form onsubmit="event.preventDefault(); alert('Pixel Generated!');">
@@ -231,6 +267,7 @@
       </table>
     </div>
 
+    <!-- AI Assistant tab content -->
     <div id="assistant" class="tab">
       <h2>AI Assistant</h2>
       <div class="prompt-examples">
