@@ -1,4 +1,4 @@
-<!-- ACTIV MVP Dashboard + Pixel Manager + AI Assistant (Side Navigation - Modern UI with Dynamic Chart.js Integration) -->
+<!-- ACTIV MVP Dashboard + Pixel Manager + AI Assistant (Dynamic + Multi-Chart + Copilot UX - Fixed DOM Error + Working Tabs) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,65 +82,112 @@
       background: #1a2b6b; color: white; padding: 10px 20px; border: none; border-radius: 8px; margin-top: 12px;
       cursor: pointer;
     }
-    canvas { max-width: 100%; margin-top: 20px; background: white; padding: 20px; border-radius: 12px; }
+    .chart-container {
+      resize: both;
+      overflow: auto;
+      background: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 12px;
+    }
+    .assistant-response {
+      background: #ffffff;
+      border-left: 4px solid #1a2b6b;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 24px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .assistant-response code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    canvas { width: 100% !important; height: auto !important; }
   </style>
   <script>
-    let aiChart;
+    let charts = [];
+
     function showTab(id) {
       document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('aside a').forEach(link => link.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.querySelector(`aside a[data-tab="${id}"]`).classList.add('active');
+      const tabEl = document.getElementById(id);
+      const navEl = document.querySelector(`aside a[data-tab="${id}"]`);
+      if (tabEl && navEl) {
+        tabEl.classList.add('active');
+        navEl.classList.add('active');
+      }
     }
 
-    function initChart(data = [120, 200, 380, 240, 160], title = 'Audience Reach by Age Group') {
-      const ctx = document.getElementById('aiChart').getContext('2d');
-      if (aiChart) aiChart.destroy();
-      aiChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['18-24', '25-34', '35-44', '45-54', '55+'],
-          datasets: [{
-            label: 'Reach (in thousands)',
-            data: data,
-            backgroundColor: '#1a2b6b'
-          }]
-        },
+    function createChart(ctxId, type, data, title) {
+      const canvas = document.getElementById(ctxId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      return new Chart(ctx, {
+        type: type,
+        data: data,
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
-            legend: { display: false },
             title: {
               display: true,
               text: title
-            }
+            },
+            legend: { display: true }
           }
         }
       });
     }
 
     function handleAIResponse() {
-      const prompt = document.querySelector('#aiPrompt').value.toLowerCase();
+      const promptEl = document.querySelector('#aiPrompt');
+      const responseEl = document.querySelector('#aiResponseText');
+      if (!promptEl || !responseEl) return;
+
+      const prompt = promptEl.value.toLowerCase();
+
+      // Clear previous charts
+      charts.forEach(chart => chart.destroy());
+      charts = [];
+
       const values = Array.from({ length: 5 }, () => Math.floor(Math.random() * 400) + 100);
-      let responseText = 'Here is your audience reach breakdown:';
-      let chartTitle = 'Audience Reach by Age Group';
+      const labels = ['18-24', '25-34', '35-44', '45-54', '55+'];
 
-      if (prompt.includes('ctr')) {
-        responseText = 'Here is the click-through rate distribution:';
-        chartTitle = 'CTR by Age Group';
-      } else if (prompt.includes('completion')) {
-        responseText = 'Here is the completion rate overview:';
-        chartTitle = 'Completion Rate by Age Group';
-      }
+      // Simulate assistant response text
+      let responseText = `🔎 Here's what I found based on your query: <br><br>`;
+      responseText += `• Reach peaked in the 35–44 age range.<br>`;
+      responseText += `• CTR and completion rate trends vary by platform and age group.<br>`;
+      responseText += `• Here's a visual breakdown:`;
 
-      document.querySelector('#aiResponseText').innerText = responseText;
-      initChart(values, chartTitle);
+      responseEl.innerHTML = `<div class="assistant-response">${responseText}</div>`;
+
+      const baseData = {
+        labels: labels,
+        datasets: [{
+          label: 'Reach (in thousands)',
+          data: values,
+          backgroundColor: '#1a2b6b'
+        }]
+      };
+
+      charts.push(createChart('chart1', 'bar', baseData, 'Reach by Age Group'));
+      charts.push(createChart('chart2', 'line', baseData, 'CTR Trend by Age Group'));
+      charts.push(createChart('chart3', 'pie', {
+        labels: labels,
+        datasets: [{
+          label: 'Audience Share',
+          data: values,
+          backgroundColor: ['#1a2b6b', '#3e4ca1', '#6073c6', '#8ca3e0', '#b9c7f0']
+        }]
+      }, 'Audience Distribution'));
     }
 
-    window.onload = () => {
+    window.addEventListener('DOMContentLoaded', () => {
       showTab('dashboard');
-      initChart();
-    }
+    });
   </script>
 </head>
 <body>
@@ -153,11 +200,6 @@
   <main>
     <div id="dashboard" class="tab">
       <h2>Dashboard</h2>
-      <div class="filters">
-        <input type="date" />
-        <select><option>All Platforms</option><option>LG</option><option>Samsung</option></select>
-        <select><option>All Regions</option><option>NA</option><option>EU</option></select>
-      </div>
       <div class="kpi-grid">
         <div class="card"><h3>Impressions</h3><p>1.2M</p></div>
         <div class="card"><h3>Reach</h3><p>950K</p></div>
@@ -195,14 +237,15 @@
     <div id="assistant" class="tab">
       <h2>AI Assistant</h2>
       <div class="chat-box">
-        <textarea id="aiPrompt" rows="4" placeholder="Ask something like 'Which age group had the highest reach in Q1?'..."></textarea>
+        <textarea id="aiPrompt" rows="4" placeholder="Ask something like 'Show CTR trends by age group'"></textarea>
         <button onclick="handleAIResponse()">Submit</button>
-        <div style="margin-top: 16px;">
-          <strong id="aiResponseText">Audience aged 35–44 had the highest reach of 380K across 3 Samsung campaigns in Q1.</strong>
-          <canvas id="aiChart" height="200"></canvas>
-        </div>
+        <div id="aiResponseText"></div>
+        <div class="chart-container"><canvas id="chart1"></canvas></div>
+        <div class="chart-container"><canvas id="chart2"></canvas></div>
+        <div class="chart-container"><canvas id="chart3"></canvas></div>
       </div>
     </div>
   </main>
 </body>
 </html>
+
