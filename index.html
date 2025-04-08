@@ -1,4 +1,4 @@
-<!-- ACTIV MVP Dashboard + Pixel Manager + AI Assistant (Dynamic + Multi-Chart + Copilot UX - Fixed DOM Error + Working Tabs) -->
+<!-- ACTIV MVP Dashboard + Pixel Manager + AI Assistant (Enhanced Features) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,9 +65,13 @@
       padding: 16px;
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .card h3 { margin: 0; font-size: 14px; color: #666; }
     .card p { font-size: 22px; font-weight: 700; margin-top: 8px; }
+    .card span.trend { font-size: 18px; color: green; margin-left: 8px; }
     table {
       width: 100%; border-collapse: collapse;
     }
@@ -75,13 +79,6 @@
       text-align: left; padding: 12px; border-bottom: 1px solid #eee;
     }
     th { background: #f1f1f1; font-weight: 600; }
-    .chat-box textarea {
-      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;
-    }
-    .chat-box button {
-      background: #1a2b6b; color: white; padding: 10px 20px; border: none; border-radius: 8px; margin-top: 12px;
-      cursor: pointer;
-    }
     .chart-container {
       resize: both;
       overflow: auto;
@@ -89,6 +86,14 @@
       padding: 20px;
       margin-top: 20px;
       border-radius: 12px;
+    }
+    canvas { width: 100% !important; height: auto !important; }
+    .chat-box textarea {
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;
+    }
+    .chat-box button {
+      background: #1a2b6b; color: white; padding: 10px 20px; border: none; border-radius: 8px; margin-top: 12px;
+      cursor: pointer;
     }
     .assistant-response {
       background: #ffffff;
@@ -99,17 +104,22 @@
       font-size: 15px;
       line-height: 1.6;
     }
-    .assistant-response code {
-      background: #f4f4f4;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 14px;
+    .prompt-examples {
+      margin-bottom: 12px;
     }
-    canvas { width: 100% !important; height: auto !important; }
+    .prompt-examples button {
+      margin: 0 6px 6px 0;
+      padding: 6px 12px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #e0e7ff;
+      color: #1a2b6b;
+      cursor: pointer;
+    }
   </style>
   <script>
     let charts = [];
-
     function showTab(id) {
       document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('aside a').forEach(link => link.classList.remove('active'));
@@ -120,7 +130,6 @@
         navEl.classList.add('active');
       }
     }
-
     function createChart(ctxId, type, data, title) {
       const canvas = document.getElementById(ctxId);
       if (!canvas) return;
@@ -141,23 +150,18 @@
         }
       });
     }
-
-    function handleAIResponse() {
-      const promptEl = document.querySelector('#aiPrompt');
+    function handleAIResponse(text) {
+      const prompt = text || document.querySelector('#aiPrompt').value.toLowerCase();
       const responseEl = document.querySelector('#aiResponseText');
-      if (!promptEl || !responseEl) return;
+      if (!prompt || !responseEl) return;
 
-      const prompt = promptEl.value.toLowerCase();
-
-      // Clear previous charts
       charts.forEach(chart => chart.destroy());
       charts = [];
 
       const values = Array.from({ length: 5 }, () => Math.floor(Math.random() * 400) + 100);
       const labels = ['18-24', '25-34', '35-44', '45-54', '55+'];
 
-      // Simulate assistant response text
-      let responseText = `🔎 Here's what I found based on your query: <br><br>`;
+      let responseText = `🔎 Here's what I found based on your query:<br><br>`;
       responseText += `• Reach peaked in the 35–44 age range.<br>`;
       responseText += `• CTR and completion rate trends vary by platform and age group.<br>`;
       responseText += `• Here's a visual breakdown:`;
@@ -184,7 +188,6 @@
         }]
       }, 'Audience Distribution'));
     }
-
     window.addEventListener('DOMContentLoaded', () => {
       showTab('dashboard');
     });
@@ -201,30 +204,24 @@
     <div id="dashboard" class="tab">
       <h2>Dashboard</h2>
       <div class="kpi-grid">
-        <div class="card"><h3>Impressions</h3><p>1.2M</p></div>
-        <div class="card"><h3>Reach</h3><p>950K</p></div>
-        <div class="card"><h3>Completion Rate</h3><p>83%</p></div>
-        <div class="card"><h3>CPM</h3><p>$18.32</p></div>
-        <div class="card"><h3>Spend</h3><p>$42,000</p></div>
-        <div class="card"><h3>CTR</h3><p>1.95%</p></div>
-        <div class="card"><h3>Conversions</h3><p>3,420</p></div>
-        <div class="card"><h3>Viewability</h3><p>88%</p></div>
+        <div class="card"><div><h3>Impressions</h3><p>1.2M</p></div><span class="trend">▲</span></div>
+        <div class="card"><div><h3>Reach</h3><p>950K</p></div><span class="trend">▲</span></div>
+        <div class="card"><div><h3>Completion Rate</h3><p>83%</p></div><span class="trend">▼</span></div>
+        <div class="card"><div><h3>CPM</h3><p>$18.32</p></div><span class="trend">▼</span></div>
+        <div class="card"><div><h3>Spend</h3><p>$42,000</p></div><span class="trend">▲</span></div>
+        <div class="card"><div><h3>CTR</h3><p>1.95%</p></div><span class="trend">▲</span></div>
+        <div class="card"><div><h3>Conversions</h3><p>3,420</p></div><span class="trend">▲</span></div>
+        <div class="card"><div><h3>Viewability</h3><p>88%</p></div><span class="trend">▲</span></div>
       </div>
-      <h3>Campaigns</h3>
-      <table>
-        <tr><th>Campaign</th><th>Platform</th><th>Status</th><th>Impressions</th><th>Conversions</th><th>CTR</th></tr>
-        <tr><td>AutoPlay Blitz</td><td>LG</td><td>Active</td><td>500K</td><td>1.2K</td><td>1.8%</td></tr>
-        <tr><td>Holiday CTV Blast</td><td>Samsung</td><td>Paused</td><td>700K</td><td>2.4K</td><td>2.1%</td></tr>
-      </table>
     </div>
 
     <div id="pixels" class="tab">
       <h2>Pixel Manager</h2>
-      <form>
-        <label>Campaign:</label><br><input type="text" /><br><br>
-        <label>Platform:</label><br><select><option>LG</option><option>Samsung</option></select><br><br>
-        <label>Format:</label><br><select><option>JS</option><option>Image</option></select><br><br>
-        <button type="button">Generate Pixel</button>
+      <form onsubmit="event.preventDefault(); alert('Pixel Generated!');">
+        <label>Campaign:</label><br><input type="text" required /><br><br>
+        <label>Platform:</label><br><select required><option value="">Select</option><option>LG</option><option>Samsung</option></select><br><br>
+        <label>Format:</label><br><select required><option value="">Select</option><option>JS</option><option>Image</option></select><br><br>
+        <button type="submit">Generate Pixel</button>
       </form>
       <h3>All Pixels</h3>
       <table>
@@ -236,6 +233,11 @@
 
     <div id="assistant" class="tab">
       <h2>AI Assistant</h2>
+      <div class="prompt-examples">
+        <button onclick="handleAIResponse('Show CTR trends by age group')">CTR by Age</button>
+        <button onclick="handleAIResponse('Compare LG vs Samsung reach')">LG vs Samsung</button>
+        <button onclick="handleAIResponse('Top converting segments')">Top Conversions</button>
+      </div>
       <div class="chat-box">
         <textarea id="aiPrompt" rows="4" placeholder="Ask something like 'Show CTR trends by age group'"></textarea>
         <button onclick="handleAIResponse()">Submit</button>
@@ -248,4 +250,3 @@
   </main>
 </body>
 </html>
-
