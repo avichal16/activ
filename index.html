@@ -7,6 +7,28 @@
   <title>ACTIV Platform</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function createChart(canvasId, type, data, title) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  return new Chart(ctx, {
+    type: type,
+    data: data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: title
+        },
+        legend: { display: true }
+      }
+    }
+  });
+}
+</script>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -181,43 +203,71 @@
     }
 
     function handleAIResponse(text) {
-      const prompt = text || document.querySelector('#aiPrompt').value.toLowerCase();
-      const responseEl = document.querySelector('#aiResponseText');
-      if (!prompt || !responseEl) return;
+  const prompt = text || document.querySelector('#aiPrompt').value.toLowerCase();
+  const responseEl = document.querySelector('#aiResponseText');
+  if (!prompt || !responseEl) return;
 
-      charts.forEach(chart => chart.destroy());
-      charts = [];
+  charts.forEach(chart => chart.destroy());
+  charts = [];
 
-      const values = Array.from({ length: 5 }, () => Math.floor(Math.random() * 400) + 100);
-      const labels = ['18-24', '25-34', '35-44', '45-54', '55+'];
+  const values = Array.from({ length: 5 }, () => Math.floor(Math.random() * 400) + 100);
+  const labels = ['18-24', '25-34', '35-44', '45-54', '55+'];
 
-      let responseText = `🔎 Here's what I found based on your query:<br><br>`;
-      responseText += `• Reach peaked in the 35–44 age range.<br>`;
-      responseText += `• CTR and completion rate trends vary by platform and age group.<br>`;
-      responseText += `• Here's a visual breakdown:`;
+  let insights = [];
+  if (prompt.includes('ctr')) {
+    insights = [
+      '• CTR peaked in the 25–34 age group.',
+      '• Samsung devices had higher engagement rates than LG.',
+      '• Suggest optimizing content for 25–34 users.'
+    ];
+  } else if (prompt.includes('reach')) {
+    insights = [
+      '• Reach was highest for the 35–44 demographic.',
+      '• LG had broader reach on weekends.',
+      '• Consider cross-channel promotion for this segment.'
+    ];
+  } else if (prompt.includes('conversion')) {
+    insights = [
+      '• Top converting audience: 45–54.',
+      '• Conversion spikes followed promotional campaigns.',
+      '• Retargeting this group could improve ROI.'
+    ];
+  } else {
+    insights = [
+      '• General performance is stable across groups.',
+      '• Use filters to explore deeper insights.',
+      '• Try "CTR by device" or "Top campaigns by spend".'
+    ];
+  }
 
-      responseEl.innerHTML = `<div class="assistant-response">${responseText}</div>`;
+  const responseText = `<div class="assistant-response">
+    🔎 Here's what I found based on your query:<br><br>
+    ${insights.map(i => `${i}<br>`).join('')}<br>
+    • Here's a visual breakdown:
+  </div>`;
 
-      const baseData = {
-        labels: labels,
-        datasets: [{
-          label: 'Reach (in thousands)',
-          data: values,
-          backgroundColor: '#1a2b6b'
-        }]
-      };
+  responseEl.innerHTML = responseText;
 
-      charts.push(createChart('chart1', 'bar', baseData, 'Reach by Age Group'));
-      charts.push(createChart('chart2', 'line', baseData, 'CTR Trend by Age Group'));
-      charts.push(createChart('chart3', 'pie', {
-        labels: labels,
-        datasets: [{
-          label: 'Audience Share',
-          data: values,
-          backgroundColor: ['#1a2b6b', '#3e4ca1', '#6073c6', '#8ca3e0', '#b9c7f0']
-        }]
-      }, 'Audience Distribution'));
-    }
+  const baseData = {
+    labels: labels,
+    datasets: [{
+      label: 'Reach (in thousands)',
+      data: values,
+      backgroundColor: '#1a2b6b'
+    }]
+  };
+
+  charts.push(createChart('chart1', 'bar', baseData, 'Reach by Age Group'));
+  charts.push(createChart('chart2', 'line', baseData, 'CTR Trend by Age Group'));
+  charts.push(createChart('chart3', 'pie', {
+    labels: labels,
+    datasets: [{
+      label: 'Audience Share',
+      data: values,
+      backgroundColor: ['#1a2b6b', '#3e4ca1', '#6073c6', '#8ca3e0', '#b9c7f0']
+    }]
+  }, 'Audience Distribution'));
+}
 
     window.addEventListener('DOMContentLoaded', () => {
       createDashboardCharts();
