@@ -1,0 +1,422 @@
+[
+  {
+    "date": "2025-02-07",
+    "impressions": 93910,
+    "ctr": 2.39,
+    "conversions": 745,
+    "spend": 547.89
+  },
+  {
+    "date": "2025-02-08",
+    "impressions": 98009,
+    "ctr": 1.86,
+    "conversions": 465,
+    "spend": 1018.99
+  },
+  {
+    "date": "2025-02-09",
+    "impressions": 60828,
+    "ctr": 2.14,
+    "conversions": 140,
+    "spend": 1027.89
+  },
+  {
+    "date": "2025-02-10",
+    "impressions": 87657,
+    "ctr": 2.72,
+    "conversions": 432,
+    "spend": 1179.0
+  },
+  {
+    "date": "2025-02-11",
+    "impressions": 124383,
+    "ctr": 2.37,
+    "conversions": 683,
+    "spend": 708.36
+  },
+  {
+    "date": "2025-02-12",
+    "impressions": 111698,
+    "ctr": 2.84,
+    "conversions": 614,
+    "spend": 958.42
+  },
+  {
+    "date": "2025-02-13",
+    "impressions": 101094,
+    "ctr": 1.16,
+    "conversions": 305,
+    "spend": 1232.55
+  },
+  {
+    "date": "2025-02-14",
+    "impressions": 110626,
+    "ctr": 1.01,
+    "conversions": 391,
+    "spend": 1268.0
+  },
+  {
+    "date": "2025-02-15",
+    "impressions": 90314,
+    "ctr": 2.88,
+    "conversions": 238,
+    "spend": 1341.02
+  },
+  {
+    "date": "2025-02-16",
+    "impressions": 88339,
+    "ctr": 1.08,
+    "conversions": 305,
+    "spend": 689.14
+  },
+  {
+    "date": "2025-02-17",
+    "impressions": 81650,
+    "ctr": 2.3,
+    "conversions": 508,
+    "spend": 1151.05
+  },
+  {
+    "date": "2025-02-18",
+    "impressions": 127795,
+    "ctr": 2.63,
+    "conversions": 594,
+    "spend": 1187.41
+  },
+  {
+    "date": "2025-02-19",
+    "impressions": 124088,
+    "ctr": 2.61,
+    "conversions": 373,
+    "spend": 504.35
+  },
+  {
+    "date": "2025-02-20",
+    "impressions": 101907,
+    "ctr": 2.63,
+    "conversions": 459,
+    "spend": 781.54
+  },
+  {
+    "date": "2025-02-21",
+    "impressions": 93138,
+    "ctr": 2.24,
+    "conversions": 182,
+    "spend": 1355.41
+  },
+  {
+    "date": "2025-02-22",
+    "impressions": 129909,
+    "ctr": 1.07,
+    "conversions": 295,
+    "spend": 781.23
+  },
+  {
+    "date": "2025-02-23",
+    "impressions": 126856,
+    "ctr": 1.65,
+    "conversions": 390,
+    "spend": 1489.37
+  },
+  {
+    "date": "2025-02-24",
+    "impressions": 91376,
+    "ctr": 2.41,
+    "conversions": 425,
+    "spend": 1403.83
+  },
+  {
+    "date": "2025-02-25",
+    "impressions": 117599,
+    "ctr": 1.1,
+    "conversions": 335,
+    "spend": 783.76
+  },
+  {
+    "date": "2025-02-26",
+    "impressions": 126223,
+    "ctr": 2.88,
+    "conversions": 539,
+    "spend": 1451.19
+  },
+  {
+    "date": "2025-02-27",
+    "impressions": 83813,
+    "ctr": 2.39,
+    "conversions": 680,
+    "spend": 590.17
+  },
+  {
+    "date": "2025-02-28",
+    "impressions": 91473,
+    "ctr": 2.06,
+    "conversions": 348,
+    "spend": 671.31
+  },
+  {
+    "date": "2025-03-01",
+    "impressions": 94733,
+    "ctr": 1.72,
+    "conversions": 328,
+    "spend": 659.3
+  },
+  {
+    "date": "2025-03-02",
+    "impressions": 101536,
+    "ctr": 1.02,
+    "conversions": 491,
+    "spend": 1389.06
+  },
+  {
+    "date": "2025-03-03",
+    "impressions": 92907,
+    "ctr": 2.56,
+    "conversions": 629,
+    "spend": 1337.24
+  },
+  {
+    "date": "2025-03-04",
+    "impressions": 129884,
+    "ctr": 1.45,
+    "conversions": 638,
+    "spend": 1349.74
+  },
+  {
+    "date": "2025-03-05",
+    "impressions": 110929,
+    "ctr": 2.47,
+    "conversions": 457,
+    "spend": 1227.83
+  },
+  {
+    "date": "2025-03-06",
+    "impressions": 98488,
+    "ctr": 1.51,
+    "conversions": 179,
+    "spend": 741.5
+  },
+  {
+    "date": "2025-03-07",
+    "impressions": 94050,
+    "ctr": 1.59,
+    "conversions": 182,
+    "spend": 1172.71
+  },
+  {
+    "date": "2025-03-08",
+    "impressions": 100280,
+    "ctr": 1.79,
+    "conversions": 101,
+    "spend": 1307.4
+  },
+  {
+    "date": "2025-03-09",
+    "impressions": 127886,
+    "ctr": 2.11,
+    "conversions": 607,
+    "spend": 1242.65
+  },
+  {
+    "date": "2025-03-10",
+    "impressions": 127374,
+    "ctr": 2.33,
+    "conversions": 518,
+    "spend": 772.83
+  },
+  {
+    "date": "2025-03-11",
+    "impressions": 120238,
+    "ctr": 2.52,
+    "conversions": 144,
+    "spend": 1448.8
+  },
+  {
+    "date": "2025-03-12",
+    "impressions": 125356,
+    "ctr": 2.12,
+    "conversions": 596,
+    "spend": 822.44
+  },
+  {
+    "date": "2025-03-13",
+    "impressions": 109619,
+    "ctr": 2.97,
+    "conversions": 432,
+    "spend": 1385.98
+  },
+  {
+    "date": "2025-03-14",
+    "impressions": 116333,
+    "ctr": 1.96,
+    "conversions": 340,
+    "spend": 652.15
+  },
+  {
+    "date": "2025-03-15",
+    "impressions": 77913,
+    "ctr": 1.76,
+    "conversions": 604,
+    "spend": 1019.45
+  },
+  {
+    "date": "2025-03-16",
+    "impressions": 83765,
+    "ctr": 2.52,
+    "conversions": 411,
+    "spend": 700.63
+  },
+  {
+    "date": "2025-03-17",
+    "impressions": 110133,
+    "ctr": 2.84,
+    "conversions": 552,
+    "spend": 1202.81
+  },
+  {
+    "date": "2025-03-18",
+    "impressions": 81483,
+    "ctr": 1.86,
+    "conversions": 388,
+    "spend": 1206.7
+  },
+  {
+    "date": "2025-03-19",
+    "impressions": 63144,
+    "ctr": 2.9,
+    "conversions": 761,
+    "spend": 1359.07
+  },
+  {
+    "date": "2025-03-20",
+    "impressions": 79328,
+    "ctr": 1.58,
+    "conversions": 287,
+    "spend": 537.76
+  },
+  {
+    "date": "2025-03-21",
+    "impressions": 85413,
+    "ctr": 1.32,
+    "conversions": 323,
+    "spend": 1166.61
+  },
+  {
+    "date": "2025-03-22",
+    "impressions": 116012,
+    "ctr": 2.94,
+    "conversions": 397,
+    "spend": 718.69
+  },
+  {
+    "date": "2025-03-23",
+    "impressions": 103393,
+    "ctr": 1.23,
+    "conversions": 690,
+    "spend": 1355.97
+  },
+  {
+    "date": "2025-03-24",
+    "impressions": 124982,
+    "ctr": 2.06,
+    "conversions": 414,
+    "spend": 1457.68
+  },
+  {
+    "date": "2025-03-25",
+    "impressions": 96529,
+    "ctr": 2.29,
+    "conversions": 726,
+    "spend": 814.99
+  },
+  {
+    "date": "2025-03-26",
+    "impressions": 118522,
+    "ctr": 1.93,
+    "conversions": 157,
+    "spend": 888.39
+  },
+  {
+    "date": "2025-03-27",
+    "impressions": 80523,
+    "ctr": 1.79,
+    "conversions": 547,
+    "spend": 1344.7
+  },
+  {
+    "date": "2025-03-28",
+    "impressions": 73800,
+    "ctr": 1.0,
+    "conversions": 409,
+    "spend": 1443.55
+  },
+  {
+    "date": "2025-03-29",
+    "impressions": 76616,
+    "ctr": 1.87,
+    "conversions": 533,
+    "spend": 564.64
+  },
+  {
+    "date": "2025-03-30",
+    "impressions": 127579,
+    "ctr": 1.1,
+    "conversions": 789,
+    "spend": 1132.79
+  },
+  {
+    "date": "2025-03-31",
+    "impressions": 105738,
+    "ctr": 1.76,
+    "conversions": 309,
+    "spend": 990.37
+  },
+  {
+    "date": "2025-04-01",
+    "impressions": 109515,
+    "ctr": 2.02,
+    "conversions": 391,
+    "spend": 1207.1
+  },
+  {
+    "date": "2025-04-02",
+    "impressions": 94079,
+    "ctr": 2.09,
+    "conversions": 630,
+    "spend": 1203.94
+  },
+  {
+    "date": "2025-04-03",
+    "impressions": 126290,
+    "ctr": 1.06,
+    "conversions": 589,
+    "spend": 1240.15
+  },
+  {
+    "date": "2025-04-04",
+    "impressions": 119572,
+    "ctr": 1.14,
+    "conversions": 683,
+    "spend": 504.48
+  },
+  {
+    "date": "2025-04-05",
+    "impressions": 74541,
+    "ctr": 2.45,
+    "conversions": 676,
+    "spend": 1457.41
+  },
+  {
+    "date": "2025-04-06",
+    "impressions": 88590,
+    "ctr": 1.42,
+    "conversions": 630,
+    "spend": 649.43
+  },
+  {
+    "date": "2025-04-07",
+    "impressions": 88350,
+    "ctr": 2.69,
+    "conversions": 238,
+    "spend": 1389.51
+  }
+]
