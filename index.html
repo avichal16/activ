@@ -1,0 +1,208 @@
+<!-- ACTIV MVP Dashboard + Pixel Manager + AI Assistant (Side Navigation - Modern UI with Dynamic Chart.js Integration) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACTIV Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    aside {
+      background-color: #1a2b6b;
+      color: white;
+      width: 240px;
+      padding: 24px 0;
+      display: flex;
+      flex-direction: column;
+    }
+    aside h1 {
+      text-align: center;
+      margin-bottom: 32px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    aside a {
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    aside a:hover, aside a.active {
+      background-color: #293d8f;
+    }
+    main {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+    .tab { display: none; }
+    .tab.active { display: block; }
+    .filters, .kpi-grid, .card, table, .chat-box { margin-bottom: 24px; }
+    .filters select, .filters input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-right: 12px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .card h3 { margin: 0; font-size: 14px; color: #666; }
+    .card p { font-size: 22px; font-weight: 700; margin-top: 8px; }
+    table {
+      width: 100%; border-collapse: collapse;
+    }
+    th, td {
+      text-align: left; padding: 12px; border-bottom: 1px solid #eee;
+    }
+    th { background: #f1f1f1; font-weight: 600; }
+    .chat-box textarea {
+      width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;
+    }
+    .chat-box button {
+      background: #1a2b6b; color: white; padding: 10px 20px; border: none; border-radius: 8px; margin-top: 12px;
+      cursor: pointer;
+    }
+    canvas { max-width: 100%; margin-top: 20px; background: white; padding: 20px; border-radius: 12px; }
+  </style>
+  <script>
+    let aiChart;
+    function showTab(id) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('aside a').forEach(link => link.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelector(`aside a[data-tab="${id}"]`).classList.add('active');
+    }
+
+    function initChart(data = [120, 200, 380, 240, 160], title = 'Audience Reach by Age Group') {
+      const ctx = document.getElementById('aiChart').getContext('2d');
+      if (aiChart) aiChart.destroy();
+      aiChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['18-24', '25-34', '35-44', '45-54', '55+'],
+          datasets: [{
+            label: 'Reach (in thousands)',
+            data: data,
+            backgroundColor: '#1a2b6b'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: title
+            }
+          }
+        }
+      });
+    }
+
+    function handleAIResponse() {
+      const prompt = document.querySelector('#aiPrompt').value.toLowerCase();
+      const values = Array.from({ length: 5 }, () => Math.floor(Math.random() * 400) + 100);
+      let responseText = 'Here is your audience reach breakdown:';
+      let chartTitle = 'Audience Reach by Age Group';
+
+      if (prompt.includes('ctr')) {
+        responseText = 'Here is the click-through rate distribution:';
+        chartTitle = 'CTR by Age Group';
+      } else if (prompt.includes('completion')) {
+        responseText = 'Here is the completion rate overview:';
+        chartTitle = 'Completion Rate by Age Group';
+      }
+
+      document.querySelector('#aiResponseText').innerText = responseText;
+      initChart(values, chartTitle);
+    }
+
+    window.onload = () => {
+      showTab('dashboard');
+      initChart();
+    }
+  </script>
+</head>
+<body>
+  <aside>
+    <h1>ACTIV</h1>
+    <a href="#" data-tab="dashboard" onclick="showTab('dashboard')">📊 Dashboard</a>
+    <a href="#" data-tab="pixels" onclick="showTab('pixels')">🧩 Pixel Manager</a>
+    <a href="#" data-tab="assistant" onclick="showTab('assistant')">🤖 AI Assistant</a>
+  </aside>
+  <main>
+    <div id="dashboard" class="tab">
+      <h2>Dashboard</h2>
+      <div class="filters">
+        <input type="date" />
+        <select><option>All Platforms</option><option>LG</option><option>Samsung</option></select>
+        <select><option>All Regions</option><option>NA</option><option>EU</option></select>
+      </div>
+      <div class="kpi-grid">
+        <div class="card"><h3>Impressions</h3><p>1.2M</p></div>
+        <div class="card"><h3>Reach</h3><p>950K</p></div>
+        <div class="card"><h3>Completion Rate</h3><p>83%</p></div>
+        <div class="card"><h3>CPM</h3><p>$18.32</p></div>
+        <div class="card"><h3>Spend</h3><p>$42,000</p></div>
+        <div class="card"><h3>CTR</h3><p>1.95%</p></div>
+        <div class="card"><h3>Conversions</h3><p>3,420</p></div>
+        <div class="card"><h3>Viewability</h3><p>88%</p></div>
+      </div>
+      <h3>Campaigns</h3>
+      <table>
+        <tr><th>Campaign</th><th>Platform</th><th>Status</th><th>Impressions</th><th>Conversions</th><th>CTR</th></tr>
+        <tr><td>AutoPlay Blitz</td><td>LG</td><td>Active</td><td>500K</td><td>1.2K</td><td>1.8%</td></tr>
+        <tr><td>Holiday CTV Blast</td><td>Samsung</td><td>Paused</td><td>700K</td><td>2.4K</td><td>2.1%</td></tr>
+      </table>
+    </div>
+
+    <div id="pixels" class="tab">
+      <h2>Pixel Manager</h2>
+      <form>
+        <label>Campaign:</label><br><input type="text" /><br><br>
+        <label>Platform:</label><br><select><option>LG</option><option>Samsung</option></select><br><br>
+        <label>Format:</label><br><select><option>JS</option><option>Image</option></select><br><br>
+        <button type="button">Generate Pixel</button>
+      </form>
+      <h3>All Pixels</h3>
+      <table>
+        <tr><th>Pixel Name</th><th>Campaign</th><th>Status</th><th>Format</th><th>Created</th></tr>
+        <tr><td>Pixel_123_LG</td><td>AutoPlay Blitz</td><td>Fired</td><td>JS</td><td>2025-04-01</td></tr>
+        <tr><td>Pixel_999_Samsung</td><td>Holiday CTV Blast</td><td>Not Fired</td><td>Image</td><td>2025-04-02</td></tr>
+      </table>
+    </div>
+
+    <div id="assistant" class="tab">
+      <h2>AI Assistant</h2>
+      <div class="chat-box">
+        <textarea id="aiPrompt" rows="4" placeholder="Ask something like 'Which age group had the highest reach in Q1?'..."></textarea>
+        <button onclick="handleAIResponse()">Submit</button>
+        <div style="margin-top: 16px;">
+          <strong id="aiResponseText">Audience aged 35–44 had the highest reach of 380K across 3 Samsung campaigns in Q1.</strong>
+          <canvas id="aiChart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
